@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stranger Things - Mini Games</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Special+Elite&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Particle effects background -->
+    <div id="particles"></div>
+    
+    <!-- Flickering overlay -->
+    <div class="flicker-overlay"></div>
+    
+    <!-- Main Menu -->
+    <div id="main-menu" class="screen active">
+        <div class="logo-container">
+            <h1 class="stranger-logo">
+                <span class="logo-line">STRANGER</span>
+                <span class="logo-line">THINGS</span>
+            </h1>
+            <p class="subtitle">MINI GAMES</p>
+        </div>
+        
+        <div class="menu-container">
+            <button class="menu-btn" onclick="startGame('memory')">
+                <span class="btn-icon">🃏</span>
+                <span class="btn-text">The Upside Down</span>
+                <span class="btn-desc">Memory Card Game</span>
+            </button>
+            
+            <button class="menu-btn" onclick="startGame('lights')">
+                <span class="btn-icon">💡</span>
+                <span class="btn-text">Hawkins Lights</span>
+                <span class="btn-desc">Pattern Memory</span>
+            </button>
+            
+            <button class="menu-btn" onclick="startGame('chase')">
+                <span class="btn-icon">👹</span>
+                <span class="btn-text">Demogorgon Chase</span>
+                <span class="btn-desc">Survival Game</span>
+            </button>
+            
+            <button class="menu-btn" onclick="startGame('eleven')">
+                <span class="btn-icon">🧠</span>
+                <span class="btn-text">Eleven's Powers</span>
+                <span class="btn-desc">Reaction Game</span>
+            </button>
+        </div>
+        
+        <div class="footer-text">
+            <p>Press a button to enter the Upside Down...</p>
+        </div>
+    </div>
+
+    <!-- Memory Game Screen -->
+    <div id="memory-game" class="screen">
+        <div class="game-header">
+            <button class="back-btn" onclick="goToMenu()">← Back</button>
+            <h2 class="game-title">The Upside Down</h2>
+            <div class="game-stats">
+                <span id="memory-moves">Moves: 0</span>
+                <span id="memory-matches">Matches: 0/8</span>
+            </div>
+        </div>
+        <div class="memory-board" id="memory-board"></div>
+        <button class="restart-btn" onclick="initMemoryGame()">Restart Game</button>
+    </div>
+
+    <!-- Lights Game Screen -->
+    <div id="lights-game" class="screen">
+        <div class="game-header">
+            <button class="back-btn" onclick="goToMenu()">← Back</button>
+            <h2 class="game-title">Hawkins Lights</h2>
+            <div class="game-stats">
+                <span id="lights-level">Level: 1</span>
+                <span id="lights-score">Score: 0</span>
+            </div>
+        </div>
+        <div class="lights-message" id="lights-message">Watch the pattern...</div>
+        <div class="alphabet-wall" id="alphabet-wall"></div>
+        <button class="restart-btn" onclick="initLightsGame()">Restart Game</button>
+    </div>
+
+    <!-- Chase Game Screen -->
+    <div id="chase-game" class="screen">
+        <div class="game-header">
+            <button class="back-btn" onclick="goToMenu()">← Back</button>
+            <h2 class="game-title">Demogorgon Chase</h2>
+            <div class="game-stats">
+                <span id="chase-score">Score: 0</span>
+                <span id="chase-time">Time: 0s</span>
+            </div>
+        </div>
+        <div class="chase-arena" id="chase-arena">
+            <div class="player" id="player">🚴</div>
+            <div class="demogorgon" id="demogorgon">👹</div>
+            <div class="collectible" id="collectible">⭐</div>
+        </div>
+        <p class="controls-hint">Use Arrow Keys or WASD to move</p>
+        <button class="restart-btn" onclick="initChaseGame()">Restart Game</button>
+    </div>
+
+    <!-- Eleven Game Screen -->
+    <div id="eleven-game" class="screen">
+        <div class="game-header">
+            <button class="back-btn" onclick="goToMenu()">← Back</button>
+            <h2 class="game-title">Eleven's Powers</h2>
+            <div class="game-stats">
+                <span id="eleven-score">Score: 0</span>
+                <span id="eleven-streak">Streak: 0</span>
+            </div>
+        </div>
+        <div class="eleven-arena" id="eleven-arena">
+            <div class="power-circle" id="power-circle">
+                <span class="power-text">FOCUS</span>
+            </div>
+            <div class="targets-container" id="targets-container"></div>
+        </div>
+        <p class="controls-hint">Click the targets before they disappear!</p>
+        <button class="restart-btn" onclick="initElevenGame()">Restart Game</button>
+    </div>
+
+    <!-- Game Over Overlay -->
+    <div id="game-over" class="overlay">
+        <div class="overlay-content">
+            <h2 class="game-over-title">GAME OVER</h2>
+            <p id="final-score" class="final-score"></p>
+            <button class="menu-btn" onclick="restartCurrentGame()">Play Again</button>
+            <button class="menu-btn secondary" onclick="goToMenu()">Main Menu</button>
+        </div>
+    </div>
+
+    <!-- Victory Overlay -->
+    <div id="victory" class="overlay">
+        <div class="overlay-content">
+            <h2 class="victory-title">VICTORY!</h2>
+            <p id="victory-score" class="final-score"></p>
+            <button class="menu-btn" onclick="restartCurrentGame()">Play Again</button>
+            <button class="menu-btn secondary" onclick="goToMenu()">Main Menu</button>
+        </div>
+    </div>
+
+    <script src="game.js"></script>
+</body>
+</html>

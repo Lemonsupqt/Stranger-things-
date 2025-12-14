@@ -1,0 +1,822 @@
+/* ========================================
+   STRANGER THINGS MINI GAMES - STYLES
+   ======================================== */
+
+/* CSS Variables */
+:root {
+    --bg-dark: #0a0a0a;
+    --bg-darker: #050505;
+    --red-primary: #ff1744;
+    --red-glow: #ff0033;
+    --red-dark: #b71c1c;
+    --text-light: #e0e0e0;
+    --text-dim: #888;
+    --blue-upside: #1a237e;
+    --purple-power: #7b1fa2;
+    --green-glow: #00ff41;
+    --yellow-light: #ffeb3b;
+    --orange-light: #ff9800;
+}
+
+/* Reset & Base */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Special Elite', cursive;
+    background: var(--bg-dark);
+    color: var(--text-light);
+    min-height: 100vh;
+    overflow-x: hidden;
+    position: relative;
+}
+
+/* Particle Background */
+#particles {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 0;
+    background: 
+        radial-gradient(ellipse at center, transparent 0%, var(--bg-darker) 100%),
+        url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+    opacity: 0.05;
+}
+
+/* Flickering Overlay */
+.flicker-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 1000;
+    background: transparent;
+    animation: flicker 0.15s infinite;
+}
+
+@keyframes flicker {
+    0%, 100% { opacity: 0; }
+    50% { opacity: 0.02; background: white; }
+}
+
+/* Screen Management */
+.screen {
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    padding: 20px;
+    position: relative;
+    z-index: 1;
+}
+
+.screen.active {
+    display: flex;
+}
+
+/* ========================================
+   MAIN MENU STYLES
+   ======================================== */
+
+.logo-container {
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+.stranger-logo {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(3rem, 12vw, 8rem);
+    line-height: 0.85;
+    letter-spacing: 0.15em;
+    color: var(--red-primary);
+    text-shadow: 
+        0 0 10px var(--red-glow),
+        0 0 20px var(--red-glow),
+        0 0 40px var(--red-glow),
+        0 0 80px var(--red-dark);
+    animation: glow-pulse 2s ease-in-out infinite;
+}
+
+.logo-line {
+    display: block;
+}
+
+@keyframes glow-pulse {
+    0%, 100% {
+        text-shadow: 
+            0 0 10px var(--red-glow),
+            0 0 20px var(--red-glow),
+            0 0 40px var(--red-glow),
+            0 0 80px var(--red-dark);
+    }
+    50% {
+        text-shadow: 
+            0 0 5px var(--red-glow),
+            0 0 15px var(--red-glow),
+            0 0 30px var(--red-glow),
+            0 0 60px var(--red-dark);
+    }
+}
+
+.subtitle {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(1.5rem, 5vw, 2.5rem);
+    letter-spacing: 0.5em;
+    color: var(--text-dim);
+    margin-top: 20px;
+    animation: subtitle-flicker 3s ease-in-out infinite;
+}
+
+@keyframes subtitle-flicker {
+    0%, 100% { opacity: 1; }
+    92% { opacity: 1; }
+    93% { opacity: 0.3; }
+    94% { opacity: 1; }
+    95% { opacity: 0.5; }
+    96% { opacity: 1; }
+}
+
+.menu-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 20px;
+    max-width: 1200px;
+    width: 100%;
+    padding: 0 20px;
+}
+
+.menu-btn {
+    background: linear-gradient(135deg, rgba(255, 23, 68, 0.1) 0%, rgba(0, 0, 0, 0.8) 100%);
+    border: 2px solid var(--red-primary);
+    border-radius: 10px;
+    padding: 25px 30px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.menu-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 23, 68, 0.2), transparent);
+    transition: left 0.5s ease;
+}
+
+.menu-btn:hover::before {
+    left: 100%;
+}
+
+.menu-btn:hover {
+    transform: translateY(-5px);
+    box-shadow: 
+        0 10px 40px rgba(255, 23, 68, 0.3),
+        0 0 20px rgba(255, 23, 68, 0.2);
+    border-color: var(--red-glow);
+}
+
+.menu-btn:active {
+    transform: translateY(-2px);
+}
+
+.btn-icon {
+    font-size: 3rem;
+    margin-bottom: 10px;
+    filter: drop-shadow(0 0 10px currentColor);
+}
+
+.btn-text {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.8rem;
+    color: var(--red-primary);
+    letter-spacing: 0.1em;
+    text-shadow: 0 0 10px var(--red-glow);
+}
+
+.btn-desc {
+    font-size: 0.9rem;
+    color: var(--text-dim);
+    margin-top: 5px;
+}
+
+.menu-btn.secondary {
+    background: transparent;
+    border-color: var(--text-dim);
+}
+
+.menu-btn.secondary .btn-text {
+    color: var(--text-light);
+    text-shadow: none;
+}
+
+.menu-btn.secondary:hover {
+    border-color: var(--text-light);
+    box-shadow: 0 10px 40px rgba(255, 255, 255, 0.1);
+}
+
+.footer-text {
+    margin-top: 50px;
+    color: var(--text-dim);
+    font-size: 0.9rem;
+    animation: blink 1.5s ease-in-out infinite;
+}
+
+@keyframes blink {
+    0%, 100% { opacity: 0.5; }
+    50% { opacity: 1; }
+}
+
+/* ========================================
+   GAME HEADER STYLES
+   ======================================== */
+
+.game-header {
+    width: 100%;
+    max-width: 800px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+.back-btn {
+    background: transparent;
+    border: 1px solid var(--red-primary);
+    color: var(--red-primary);
+    padding: 10px 20px;
+    font-family: 'Special Elite', cursive;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border-radius: 5px;
+}
+
+.back-btn:hover {
+    background: var(--red-primary);
+    color: var(--bg-dark);
+}
+
+.game-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 2rem;
+    color: var(--red-primary);
+    text-shadow: 0 0 10px var(--red-glow);
+    letter-spacing: 0.1em;
+}
+
+.game-stats {
+    display: flex;
+    gap: 20px;
+    font-size: 1.1rem;
+    color: var(--text-light);
+}
+
+.restart-btn {
+    margin-top: 30px;
+    background: transparent;
+    border: 2px solid var(--red-primary);
+    color: var(--red-primary);
+    padding: 15px 40px;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.3rem;
+    letter-spacing: 0.1em;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border-radius: 5px;
+}
+
+.restart-btn:hover {
+    background: var(--red-primary);
+    color: var(--bg-dark);
+    box-shadow: 0 0 20px var(--red-glow);
+}
+
+/* ========================================
+   MEMORY GAME STYLES
+   ======================================== */
+
+.memory-board {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 15px;
+    max-width: 600px;
+    width: 100%;
+    padding: 20px;
+}
+
+.memory-card {
+    aspect-ratio: 1;
+    cursor: pointer;
+    position: relative;
+    transform-style: preserve-3d;
+    transition: transform 0.6s ease;
+}
+
+.memory-card.flipped {
+    transform: rotateY(180deg);
+}
+
+.memory-card.matched {
+    animation: matched-glow 0.5s ease;
+}
+
+@keyframes matched-glow {
+    0%, 100% { box-shadow: 0 0 20px var(--green-glow); }
+    50% { box-shadow: 0 0 40px var(--green-glow); }
+}
+
+.card-face {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 3rem;
+    border-radius: 10px;
+    border: 2px solid var(--red-primary);
+}
+
+.card-front {
+    background: linear-gradient(135deg, var(--blue-upside) 0%, var(--bg-darker) 100%);
+    transform: rotateY(180deg);
+}
+
+.card-back {
+    background: linear-gradient(135deg, var(--bg-darker) 0%, #1a1a2e 100%);
+    border-color: var(--red-dark);
+}
+
+.card-back::before {
+    content: '?';
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 2.5rem;
+    color: var(--red-dark);
+}
+
+/* ========================================
+   LIGHTS GAME STYLES
+   ======================================== */
+
+.lights-message {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.8rem;
+    color: var(--yellow-light);
+    text-shadow: 0 0 10px var(--yellow-light);
+    margin-bottom: 30px;
+    min-height: 50px;
+}
+
+.alphabet-wall {
+    display: grid;
+    grid-template-columns: repeat(9, 1fr);
+    gap: 10px;
+    max-width: 700px;
+    width: 100%;
+    padding: 30px;
+    background: linear-gradient(135deg, #1a1a1a 0%, #0d0d0d 100%);
+    border-radius: 15px;
+    border: 3px solid #333;
+    box-shadow: inset 0 0 50px rgba(0, 0, 0, 0.5);
+}
+
+.light-letter {
+    aspect-ratio: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Special Elite', cursive;
+    font-size: clamp(1rem, 3vw, 1.5rem);
+    color: var(--text-dim);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+    border-radius: 50%;
+    background: radial-gradient(circle, #222 0%, #111 100%);
+}
+
+.light-letter::before {
+    content: '';
+    position: absolute;
+    top: 5px;
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    background: #333;
+    transition: all 0.3s ease;
+    box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.5);
+}
+
+.light-letter.lit::before {
+    background: var(--yellow-light);
+    box-shadow: 
+        0 0 10px var(--yellow-light),
+        0 0 20px var(--orange-light),
+        0 0 30px var(--orange-light);
+}
+
+.light-letter.lit {
+    color: var(--text-light);
+    text-shadow: 0 0 10px var(--yellow-light);
+}
+
+.light-letter:hover:not(.disabled) {
+    transform: scale(1.1);
+}
+
+.light-letter.disabled {
+    cursor: not-allowed;
+    opacity: 0.5;
+}
+
+.light-letter.correct {
+    animation: correct-flash 0.3s ease;
+}
+
+.light-letter.wrong {
+    animation: wrong-flash 0.3s ease;
+}
+
+@keyframes correct-flash {
+    0%, 100% { background: radial-gradient(circle, #222 0%, #111 100%); }
+    50% { background: radial-gradient(circle, #1b5e20 0%, #111 100%); }
+}
+
+@keyframes wrong-flash {
+    0%, 100% { background: radial-gradient(circle, #222 0%, #111 100%); }
+    50% { background: radial-gradient(circle, #b71c1c 0%, #111 100%); }
+}
+
+/* ========================================
+   CHASE GAME STYLES
+   ======================================== */
+
+.chase-arena {
+    width: 100%;
+    max-width: 600px;
+    height: 400px;
+    background: 
+        linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)),
+        repeating-linear-gradient(
+            0deg,
+            transparent,
+            transparent 20px,
+            rgba(255, 23, 68, 0.03) 20px,
+            rgba(255, 23, 68, 0.03) 40px
+        ),
+        repeating-linear-gradient(
+            90deg,
+            transparent,
+            transparent 20px,
+            rgba(255, 23, 68, 0.03) 20px,
+            rgba(255, 23, 68, 0.03) 40px
+        );
+    border: 3px solid var(--red-primary);
+    border-radius: 10px;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 
+        inset 0 0 100px rgba(26, 35, 126, 0.3),
+        0 0 30px rgba(255, 23, 68, 0.2);
+}
+
+.player, .demogorgon, .collectible {
+    position: absolute;
+    font-size: 2rem;
+    transition: none;
+    z-index: 10;
+}
+
+.player {
+    filter: drop-shadow(0 0 5px #4fc3f7);
+}
+
+.demogorgon {
+    filter: drop-shadow(0 0 10px var(--red-glow));
+    animation: demogorgon-pulse 0.5s ease-in-out infinite;
+}
+
+@keyframes demogorgon-pulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+}
+
+.collectible {
+    animation: collectible-spin 2s linear infinite;
+    filter: drop-shadow(0 0 10px var(--yellow-light));
+}
+
+@keyframes collectible-spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+.controls-hint {
+    margin-top: 20px;
+    color: var(--text-dim);
+    font-size: 0.9rem;
+}
+
+/* ========================================
+   ELEVEN GAME STYLES
+   ======================================== */
+
+.eleven-arena {
+    width: 100%;
+    max-width: 600px;
+    height: 400px;
+    background: radial-gradient(ellipse at center, #1a0a1a 0%, var(--bg-darker) 100%);
+    border: 3px solid var(--purple-power);
+    border-radius: 10px;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 
+        inset 0 0 100px rgba(123, 31, 162, 0.2),
+        0 0 30px rgba(123, 31, 162, 0.3);
+}
+
+.power-circle {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    border: 3px solid var(--purple-power);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    animation: power-pulse 2s ease-in-out infinite;
+    z-index: 5;
+}
+
+.power-text {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1rem;
+    color: var(--purple-power);
+    letter-spacing: 0.1em;
+}
+
+@keyframes power-pulse {
+    0%, 100% {
+        box-shadow: 
+            0 0 20px var(--purple-power),
+            inset 0 0 20px rgba(123, 31, 162, 0.3);
+    }
+    50% {
+        box-shadow: 
+            0 0 40px var(--purple-power),
+            inset 0 0 40px rgba(123, 31, 162, 0.5);
+    }
+}
+
+.target {
+    position: absolute;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background: radial-gradient(circle, var(--red-glow) 0%, var(--red-dark) 100%);
+    cursor: pointer;
+    animation: target-appear 0.3s ease-out;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    box-shadow: 0 0 20px var(--red-glow);
+    transition: transform 0.1s ease;
+}
+
+.target:hover {
+    transform: scale(1.1);
+}
+
+@keyframes target-appear {
+    from {
+        transform: scale(0);
+        opacity: 0;
+    }
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+.target.destroyed {
+    animation: target-destroy 0.3s ease-out forwards;
+}
+
+@keyframes target-destroy {
+    to {
+        transform: scale(2);
+        opacity: 0;
+    }
+}
+
+/* ========================================
+   OVERLAY STYLES
+   ======================================== */
+
+.overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.9);
+    z-index: 100;
+    align-items: center;
+    justify-content: center;
+}
+
+.overlay.active {
+    display: flex;
+}
+
+.overlay-content {
+    text-align: center;
+    padding: 50px;
+    background: linear-gradient(135deg, rgba(255, 23, 68, 0.1) 0%, rgba(0, 0, 0, 0.9) 100%);
+    border: 3px solid var(--red-primary);
+    border-radius: 20px;
+    box-shadow: 0 0 50px rgba(255, 23, 68, 0.3);
+    animation: overlay-appear 0.5s ease;
+}
+
+@keyframes overlay-appear {
+    from {
+        transform: scale(0.8);
+        opacity: 0;
+    }
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+.game-over-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 4rem;
+    color: var(--red-primary);
+    text-shadow: 0 0 20px var(--red-glow);
+    letter-spacing: 0.2em;
+    margin-bottom: 20px;
+}
+
+.victory-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 4rem;
+    color: var(--green-glow);
+    text-shadow: 0 0 20px var(--green-glow);
+    letter-spacing: 0.2em;
+    margin-bottom: 20px;
+}
+
+.final-score {
+    font-size: 1.5rem;
+    color: var(--text-light);
+    margin-bottom: 30px;
+}
+
+.overlay .menu-btn {
+    margin: 10px;
+}
+
+/* ========================================
+   RESPONSIVE STYLES
+   ======================================== */
+
+@media (max-width: 768px) {
+    .menu-container {
+        grid-template-columns: 1fr;
+    }
+    
+    .memory-board {
+        grid-template-columns: repeat(4, 1fr);
+        gap: 10px;
+        padding: 10px;
+    }
+    
+    .card-face {
+        font-size: 2rem;
+    }
+    
+    .alphabet-wall {
+        grid-template-columns: repeat(6, 1fr);
+        gap: 8px;
+        padding: 15px;
+    }
+    
+    .light-letter {
+        font-size: 0.9rem;
+    }
+    
+    .light-letter::before {
+        width: 10px;
+        height: 10px;
+        top: 3px;
+    }
+    
+    .chase-arena, .eleven-arena {
+        height: 300px;
+    }
+    
+    .game-header {
+        flex-direction: column;
+        text-align: center;
+    }
+    
+    .game-stats {
+        flex-direction: column;
+        gap: 5px;
+    }
+}
+
+@media (max-width: 480px) {
+    .memory-board {
+        grid-template-columns: repeat(4, 1fr);
+        gap: 8px;
+    }
+    
+    .card-face {
+        font-size: 1.5rem;
+    }
+    
+    .alphabet-wall {
+        grid-template-columns: repeat(5, 1fr);
+    }
+    
+    .stranger-logo {
+        font-size: 2.5rem;
+    }
+    
+    .subtitle {
+        font-size: 1rem;
+        letter-spacing: 0.3em;
+    }
+}
+
+/* ========================================
+   UTILITY ANIMATIONS
+   ======================================== */
+
+.shake {
+    animation: shake 0.5s ease-in-out;
+}
+
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-10px); }
+    75% { transform: translateX(10px); }
+}
+
+.pulse {
+    animation: pulse 0.3s ease;
+}
+
+@keyframes pulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+}
+
+/* Scanlines effect */
+body::after {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: repeating-linear-gradient(
+        0deg,
+        rgba(0, 0, 0, 0.1),
+        rgba(0, 0, 0, 0.1) 1px,
+        transparent 1px,
+        transparent 2px
+    );
+    pointer-events: none;
+    z-index: 999;
+}
